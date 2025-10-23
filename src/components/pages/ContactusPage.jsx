@@ -14,7 +14,7 @@ export default function ContactUs() {
           </div>
           <div className="border border-[#5F259F] rounded-lg p-6 shadow ">
             <h4 className="text-lg font-semibold text-[#5F259F]">📞 Phone</h4>
-            <p className="text-gray-500">+91 966 789 7663</p>
+            <p className="text-gray-500">01169311284</p>
           </div>
           <div className="border border-[#5F259F] rounded-lg p-6 shadow">
             <h4 className="text-lg font-semibold text-[#5F259F]">📧 Email</h4>

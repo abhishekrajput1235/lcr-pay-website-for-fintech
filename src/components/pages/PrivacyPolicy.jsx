@@ -190,7 +190,7 @@ export default function PrivacyPolicy() {
             Ghaziabad, Uttar Pradesh – 201012
           </p>
           <p>Email: care@lcrpay.com</p>
-          <p>Contact: 01169311284</p>
+          <p>Contact: 01169311284, +91 8130760448</p>
           <p>Timings: Monday – Friday (10:00 AM – 6:00 PM)</p>
         </div>
       </div>

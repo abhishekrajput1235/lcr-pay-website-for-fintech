@@ -13,6 +13,7 @@ import LcrPayServicesPage from './components/ServicesPage'
 import DeleteUserPage from './components/pages/DeleteUserPage'
 import AboutUsPage from './components/pages/AboutUsPage';
 import NotFoundPage from './components/pages/NotFoundPage';
+import WhatsAppButton from './components/WhatsAppButton';
 import ScrollToTop from './components/ScrollToTop';
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </ScrollToTop>
+        <WhatsAppButton />
       </div>
     </>
   )
