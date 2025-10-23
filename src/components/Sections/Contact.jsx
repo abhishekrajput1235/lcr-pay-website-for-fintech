@@ -2,6 +2,15 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Contact() {
+
+  const whatsappNumber = "8130760448";
+  const message = "Hello";
+
+  const handleClick = () => {
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  
   return (
     <section
       id="contact"
@@ -38,20 +47,20 @@ export default function Contact() {
           <ul className="space-y-4 text-gray-700">
             <li className="flex items-center gap-3">
               <Phone className="text-[#5f259f] w-5 h-5" />
-              <span>+91 8130760448</span>
+              <span>01169311284</span>
             </li>
             <li className="flex items-center gap-3">
               <Mail className="text-[#5f259f] w-5 h-5" />
-              <span>support@lcrpay.com</span>
+              <span> care@lcrpay.com</span>
             </li>
             <li className="flex items-center gap-3">
               <MapPin className="text-[#5f259f] w-5 h-5" />
-              <span>Quantum Tower, Noida, India</span>
+              <span>402, SG Alpha tower 2, sec 9, Vasundhara Ghaziabad Uttar Pradesh 201012</span>
             </li>
           </ul>
 
           <div className="pt-6">
-            <button className="px-6 py-3 bg-gradient-to-r from-[#5f259f] to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
+            <button onClick={handleClick} className="px-6 py-3 bg-gradient-to-r from-[#5f259f] to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-0.5">
               Chat with Support
             </button>
           </div>
