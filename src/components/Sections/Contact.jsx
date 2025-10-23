@@ -38,7 +38,7 @@ export default function Contact() {
           <ul className="space-y-4 text-gray-700">
             <li className="flex items-center gap-3">
               <Phone className="text-[#5f259f] w-5 h-5" />
-              <span>+91 98765 43210</span>
+              <span>+91 8130760448</span>
             </li>
             <li className="flex items-center gap-3">
               <Mail className="text-[#5f259f] w-5 h-5" />
