@@ -18,22 +18,33 @@ const DeleteUserPage = () => {
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const [token, setToken] = useState(null); // Auth token
+  const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   // Step 1️⃣: Send OTP
   const handleSendOtp = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
+    setLoading(true);
+
     try {
-      // ✅ Call send-otp endpoint
+      // ✅ Step 1: Check if user exists
+      const checkResponse = await api.get(`/misc/check?mobile=${mobile}`);
+      if (checkResponse.data.exists === false) {
+        setError("No account found or invalid mobile number.");
+        return;
+      }
+
+      // ✅ Step 2: If user exists, send OTP
       await api.post(`/misc/send-otp?mobile_number=${mobile}`);
-      console.log("✅ OTP sent successfully");
       setStep(2);
     } catch (err) {
-      console.error("❌ Error sending OTP:", err.response?.data || err.message);
-      setError(
-        "Failed to send OTP. Please check the mobile number and try again."
-      );
+      const errorMessage = err.response?.data?.detail || "An unexpected error occurred.";
+      console.error("❌ Error during OTP process:", errorMessage);
+      setError(`An error occurred: ${errorMessage}`);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -41,6 +52,8 @@ const DeleteUserPage = () => {
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
+    setLoading(true);
     try {
       // ✅ Call verify-otp endpoint
       const response = await api.post(`/misc/verify-otp?mobile_number=${mobile}&otp=${otp}`);
@@ -58,6 +71,8 @@ const DeleteUserPage = () => {
       setError(
         `Invalid OTP. Please try again. Details: ${err.response?.data?.detail || err.message}`
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,6 +80,8 @@ const DeleteUserPage = () => {
   const handleDeleteAccount = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
+    setLoading(true);
     try {
       // ✅ Use correct endpoint and method (PUT)
       const response = await api.put(
@@ -85,6 +102,8 @@ const DeleteUserPage = () => {
       setError(
         `Failed to delete account: ${err.response?.data?.detail || err.message}`
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -134,9 +153,10 @@ const DeleteUserPage = () => {
             />
             <button
               type="submit"
-              className="w-full bg-[#5F259F] text-white font-bold py-3 rounded-lg hover:bg-[#4a1c7c] transition-colors"
+              disabled={loading}
+              className="w-full bg-[#5F259F] text-white font-bold py-3 rounded-lg hover:bg-[#4a1c7c] transition-colors disabled:bg-gray-400"
             >
-              Send OTP to Verify
+              {loading ? "Sending..." : "Send OTP to Verify"}
             </button>
           </form>
         )}
@@ -156,9 +176,10 @@ const DeleteUserPage = () => {
             />
             <button
               type="submit"
-              className="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-colors"
+              disabled={loading}
+              className="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400"
             >
-              Verify OTP
+              {loading ? "Verifying..." : "Verify OTP"}
             </button>
           </form>
         )}
@@ -178,9 +199,10 @@ const DeleteUserPage = () => {
             </div>
             <button
               onClick={handleDeleteAccount}
-              className="w-full bg-red-600 text-white font-bold py-3 rounded-lg hover:bg-red-700 transition-colors"
+              disabled={loading}
+              className="w-full bg-red-600 text-white font-bold py-3 rounded-lg hover:bg-red-700 transition-colors disabled:bg-gray-400"
             >
-              Yes, Delete My Account
+              {loading ? "Deleting..." : "Yes, Delete My Account"}
             </button>
           </div>
         )}
